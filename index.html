@@ -1,823 +1,659 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Copa do Mundo 2026 – FIFA World Cup</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <title>Copa do Mundo 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    /* ─── TOKENS ─────────────────────────────────────────────── */
     :root {
-      --gold:    #C9A84C;
-      --gold-lt: #F0D080;
-      --red:     #C8102E;
-      --navy:    #0A1628;
-      --navy-2:  #112040;
-      --navy-3:  #1A2F55;
-      --white:   #F5F5F5;
-      --gray:    #8A95A5;
-      --grass:   #2D7A3A;
-
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-title:   'Oswald', sans-serif;
-      --font-body:    'Inter', sans-serif;
+      --gold:   #C9A84C;
+      --navy:   #0A1628;
+      --navy2:  #112040;
+      --navy3:  #1A2F55;
+      --white:  #F4F4F4;
+      --gray:   #8A95A5;
     }
 
-    /* ─── RESET ──────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      background: var(--navy);
-      color: var(--white);
-      font-family: var(--font-body);
-      overflow-x: hidden;
-    }
+    body { background: var(--navy); color: var(--white); font-family: 'Inter', sans-serif; }
 
-    /* ─── HEADER / NAV ───────────────────────────────────────── */
+    /* NAV */
     header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(10, 22, 40, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+      background: rgba(10, 22, 40, 0.95);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      height: 60px;
+      display: flex; align-items: center;
     }
     nav {
-      max-width: 1200px; margin: 0 auto;
+      max-width: 1100px; margin: 0 auto;
+      width: 100%; padding: 0 2rem;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem; height: 68px;
     }
-    .nav-logo {
-      display: flex; align-items: center; gap: .75rem;
-      font-family: var(--font-title); font-size: 1.3rem; font-weight: 700;
-      color: var(--gold); text-decoration: none; letter-spacing: .06em;
+    .logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--gold); text-decoration: none;
+      letter-spacing: 0.08em;
     }
-    .nav-logo .trophy { font-size: 1.6rem; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
       color: var(--white); text-decoration: none;
-      font-size: .85rem; font-weight: 600; letter-spacing: .08em;
-      text-transform: uppercase; transition: color .2s;
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--gold); }
-    .nav-cta {
-      background: var(--gold); color: var(--navy) !important;
-      padding: .45rem 1.2rem; border-radius: 4px;
-      font-weight: 700 !important;
-      transition: background .2s, transform .15s !important;
+    .nav-links .btn {
+      background: var(--gold); color: var(--navy);
+      padding: 0.4rem 1rem; border-radius: 3px;
+      font-weight: 700;
     }
-    .nav-cta:hover { background: var(--gold-lt) !important; transform: translateY(-1px); }
+    .nav-links .btn:hover { background: #dbb95a; color: var(--navy); }
 
-    /* ─── HERO ───────────────────────────────────────────────── */
+    /* HERO */
     .hero {
       min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
       text-align: center;
-      position: relative; overflow: hidden;
       padding: 6rem 2rem 4rem;
-    }
-    /* animated pitch lines background */
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(45,122,58,.35) 0%, transparent 70%),
-        linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
-    }
-    /* rotating globe decoration */
-    .hero-globe {
-      position: absolute; top: 12%; right: 6%;
-      width: 260px; height: 260px; border-radius: 50%;
-      background: radial-gradient(circle at 38% 36%, #1e5c9e 0%, #0a1628 70%);
-      border: 2px solid rgba(201,168,76,.3);
-      opacity: .18;
-      animation: spin 40s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .hero-badge {
       position: relative;
-      display: inline-block; background: rgba(201,168,76,.12);
-      border: 1px solid var(--gold); border-radius: 20px;
-      padding: .35rem 1.1rem; margin-bottom: 1.6rem;
-      font-family: var(--font-title); font-size: .8rem; letter-spacing: .18em;
-      color: var(--gold); text-transform: uppercase;
+      background: linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%);
+    }
+    .hero-sub {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.2rem;
     }
     .hero-title {
-      position: relative;
-      font-family: var(--font-display);
-      font-size: clamp(5rem, 13vw, 12rem);
-      line-height: .92;
-      letter-spacing: .02em;
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(5rem, 14vw, 11rem);
+      font-weight: 700; line-height: 0.9;
       color: var(--white);
-      text-shadow: 0 0 80px rgba(201,168,76,.25);
     }
     .hero-title span { color: var(--gold); }
-    .hero-sub {
-      position: relative;
-      font-family: var(--font-title); font-size: clamp(1.2rem, 3vw, 2rem);
-      font-weight: 400; letter-spacing: .25em; text-transform: uppercase;
-      color: var(--gray); margin-top: .6rem;
+    .hero-desc {
+      font-size: 1rem; color: var(--gray);
+      margin: 1.5rem 0 0.6rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 400;
     }
-    .hero-hosts {
-      position: relative;
-      display: flex; gap: 1.5rem; align-items: center; justify-content: center;
-      margin: 2.2rem 0;
+    .hero-paises {
+      display: flex; gap: 2rem; justify-content: center;
+      margin: 1.8rem 0 2.5rem;
     }
-    .host-flag {
-      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+    .pais {
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
     }
-    .flag-circle {
-      width: 60px; height: 60px; border-radius: 50%;
+    .pais-bandeira {
+      width: 52px; height: 52px; border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.3);
+      overflow: hidden; background: var(--navy3);
       display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; border: 2px solid rgba(201,168,76,.4);
-      background: rgba(255,255,255,.04);
     }
-    .flag-label {
-      font-size: .7rem; font-weight: 600; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--gray);
+    .pais-bandeira img { width: 100%; height: 100%; object-fit: cover; }
+    .pais-nome {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gray);
     }
-    .host-sep {
-      font-family: var(--font-display); font-size: 2rem; color: var(--gold); opacity: .5;
+    .hero-sep { color: var(--gold); font-size: 1.5rem; align-self: center; padding-bottom: 1.2rem; }
+    .hero-data {
+      font-size: 0.8rem; color: var(--gray);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 2.5rem;
     }
-    .hero-date {
-      position: relative;
-      font-family: var(--font-title); font-size: 1rem; font-weight: 600;
-      letter-spacing: .14em; color: var(--gray); text-transform: uppercase;
-      margin-bottom: 2.8rem;
+    .hero-data strong { color: var(--gold); }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primario {
+      background: var(--gold); color: var(--navy);
+      font-family: 'Oswald', sans-serif; font-size: 0.95rem;
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; padding: 0.8rem 2rem;
+      border-radius: 3px; transition: background 0.2s;
     }
-    .hero-date strong { color: var(--gold); }
-    .hero-actions {
-      position: relative; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    .btn-primario:hover { background: #dbb95a; }
+    .btn-secundario {
+      border: 1px solid rgba(255,255,255,0.25); color: var(--white);
+      font-family: 'Oswald', sans-serif; font-size: 0.95rem;
+      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; padding: 0.8rem 2rem;
+      border-radius: 3px; transition: border-color 0.2s;
     }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--gold), #a87930);
-      color: var(--navy); font-family: var(--font-title);
-      font-size: 1rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-      border: none; border-radius: 4px; padding: .9rem 2.2rem;
-      cursor: pointer; text-decoration: none;
-      transition: transform .2s, box-shadow .2s;
-      box-shadow: 0 4px 24px rgba(201,168,76,.35);
-      display: inline-block;
-    }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(201,168,76,.5); }
-    .btn-outline {
-      background: transparent; color: var(--white);
-      font-family: var(--font-title); font-size: 1rem; font-weight: 600;
-      letter-spacing: .1em; text-transform: uppercase;
-      border: 1.5px solid rgba(255,255,255,.3); border-radius: 4px;
-      padding: .9rem 2.2rem; cursor: pointer; text-decoration: none;
-      transition: border-color .2s, color .2s;
-      display: inline-block;
-    }
-    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-secundario:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* scroll indicator */
-    .scroll-hint {
-      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: .5rem;
-      color: var(--gray); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+    /* NUMEROS */
+    .numeros {
+      background: var(--navy2);
+      border-top: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 2.2rem 2rem;
     }
-    .scroll-line {
-      width: 1px; height: 48px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
+    .numeros-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      text-align: center; gap: 1rem;
     }
-    @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+    .numero-valor {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.8rem; font-weight: 700; color: var(--gold);
+    }
+    .numero-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gray); margin-top: 0.2rem;
+    }
+    .numero-div { width: 1px; background: rgba(255,255,255,0.07); }
 
-    /* ─── STAT BAR ───────────────────────────────────────────── */
-    .stat-bar {
-      background: var(--navy-2);
-      border-top: 1px solid rgba(201,168,76,.15);
-      border-bottom: 1px solid rgba(201,168,76,.15);
-      padding: 2rem;
+    /* SECOES */
+    section { padding: 5rem 2rem; }
+    .inner { max-width: 1100px; margin: 0 auto; }
+    .sec-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.5rem;
     }
-    .stat-grid {
-      max-width: 1000px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem; text-align: center;
+    .sec-titulo {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; color: var(--white);
+      line-height: 1.05; margin-bottom: 0.8rem;
     }
-    .stat-item {}
-    .stat-num {
-      font-family: var(--font-display); font-size: 3.2rem;
-      color: var(--gold); line-height: 1;
+    .sec-desc {
+      font-size: 0.9rem; color: var(--gray);
+      line-height: 1.75; max-width: 540px;
     }
-    .stat-label {
-      font-size: .75rem; font-weight: 600; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--gray); margin-top: .3rem;
-    }
-    .stat-divider {
-      width: 1px; background: rgba(255,255,255,.08);
-      align-self: stretch;
+    .linha-ouro {
+      width: 48px; height: 2px;
+      background: var(--gold); margin: 1rem 0;
     }
 
-    /* ─── SECTION WRAPPER ────────────────────────────────────── */
-    section { padding: 6rem 2rem; }
-    .section-inner { max-width: 1200px; margin: 0 auto; }
-    .section-eyebrow {
-      font-family: var(--font-title); font-size: .75rem; font-weight: 600;
-      letter-spacing: .22em; text-transform: uppercase; color: var(--gold);
-      margin-bottom: .6rem;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      color: var(--white); line-height: 1.05; margin-bottom: 1rem;
-    }
-    .section-desc {
-      color: var(--gray); font-size: 1rem; line-height: 1.7; max-width: 580px;
-    }
-
-    /* ─── ABOUT ──────────────────────────────────────────────── */
+    /* SOBRE */
     #sobre { background: var(--navy); }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    .sobre-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
     }
-    .about-visual {
-      position: relative; display: flex; justify-content: center; align-items: center;
+    .sobre-img {
+      border-radius: 6px; overflow: hidden;
+      aspect-ratio: 4/3;
     }
-    /* Campo de futebol SVG */
-    .pitch-svg { width: 100%; max-width: 420px; filter: drop-shadow(0 0 40px rgba(45,122,58,.4)); }
-    .about-features { display: flex; flex-direction: column; gap: 1.8rem; margin-top: 2.5rem; }
-    .feature-row { display: flex; gap: 1.2rem; align-items: flex-start; }
-    .feature-icon {
-      flex-shrink: 0; width: 44px; height: 44px; border-radius: 8px;
-      background: rgba(201,168,76,.1); border: 1px solid rgba(201,168,76,.25);
-      display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
-    }
-    .feature-text h4 {
-      font-family: var(--font-title); font-size: .95rem; font-weight: 600;
-      letter-spacing: .06em; margin-bottom: .2rem;
-    }
-    .feature-text p { font-size: .85rem; color: var(--gray); line-height: 1.55; }
-
-    /* ─── GRUPOS ─────────────────────────────────────────────── */
-    #grupos { background: var(--navy-2); }
-    .groups-intro {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      flex-wrap: wrap; gap: 1.5rem; margin-bottom: 3rem;
-    }
-    .groups-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-    .group-card {
-      background: var(--navy); border: 1px solid rgba(255,255,255,.07);
-      border-radius: 10px; overflow: hidden;
-      transition: transform .25s, border-color .25s;
-    }
-    .group-card:hover { transform: translateY(-5px); border-color: rgba(201,168,76,.35); }
-    .group-header {
-      background: linear-gradient(135deg, var(--navy-3), var(--navy-2));
-      padding: .85rem 1.2rem;
-      display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid rgba(201,168,76,.2);
-    }
-    .group-letter {
-      font-family: var(--font-display); font-size: 1.8rem; color: var(--gold);
-    }
-    .group-count { font-size: .7rem; color: var(--gray); letter-spacing: .1em; text-transform: uppercase; }
-    .group-teams { padding: .6rem 0; }
-    .team-row {
-      display: flex; align-items: center; gap: .8rem;
-      padding: .55rem 1.2rem;
-      border-bottom: 1px solid rgba(255,255,255,.04);
-      font-size: .88rem; transition: background .15s;
-    }
-    .team-row:last-child { border-bottom: none; }
-    .team-row:hover { background: rgba(255,255,255,.03); }
-    .team-flag { font-size: 1.25rem; }
-    .team-name { flex: 1; font-weight: 500; }
-    .team-conf {
-      font-size: .65rem; font-weight: 600; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--gray);
-      background: rgba(255,255,255,.06); padding: .15rem .5rem; border-radius: 3px;
-    }
-
-    /* ─── SEDES ──────────────────────────────────────────────── */
-    #sedes { background: var(--navy); }
-    .venues-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem; margin-top: 3rem;
-    }
-    .venue-card {
-      border-radius: 12px; overflow: hidden;
-      border: 1px solid rgba(255,255,255,.07);
-      background: var(--navy-2);
-      transition: transform .25s, border-color .25s;
-    }
-    .venue-card:hover { transform: translateY(-4px); border-color: rgba(201,168,76,.3); }
-    .venue-thumb {
-      height: 190px; position: relative; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--navy-3);
-    }
-    .venue-thumb img {
+    .sobre-img img {
       width: 100%; height: 100%; object-fit: cover;
-      display: block; transition: transform .5s ease;
+      display: block; transition: transform 0.4s;
     }
-    .venue-card:hover .venue-thumb img { transform: scale(1.06); }
-    .venue-thumb-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,22,40,.55) 0%, transparent 60%);
-      pointer-events: none;
+    .sobre-img:hover img { transform: scale(1.03); }
+    .recursos { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.4rem; }
+    .recurso { display: flex; gap: 1rem; align-items: flex-start; }
+    .recurso-icone {
+      flex-shrink: 0; width: 38px; height: 38px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 4px; display: flex;
+      align-items: center; justify-content: center;
+      color: var(--gold); font-size: 0.9rem; font-weight: 700;
+      font-family: 'Oswald', sans-serif;
     }
-    .stadium-icon { font-size: 5rem; opacity: .4; }
-    .venue-country-tag {
-      position: absolute; top: .8rem; right: .8rem;
-      background: rgba(10,22,40,.8); border: 1px solid rgba(201,168,76,.3);
-      border-radius: 4px; padding: .25rem .65rem;
-      font-size: .65rem; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--gold);
+    .recurso h4 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem; font-weight: 600;
+      letter-spacing: 0.04em; margin-bottom: 0.2rem;
     }
-    .venue-body { padding: 1.2rem; }
-    .venue-name { font-family: var(--font-title); font-size: 1.05rem; font-weight: 600; margin-bottom: .2rem; }
-    .venue-city { font-size: .8rem; color: var(--gray); }
-    .venue-cap {
-      display: flex; align-items: center; gap: .4rem;
-      margin-top: .8rem; font-size: .78rem; color: var(--gray);
-    }
-    .venue-cap strong { color: var(--white); }
+    .recurso p { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
 
-    /* ─── CRUD CTA ───────────────────────────────────────────── */
+    /* ESTADIOS */
+    #estadios { background: var(--navy2); }
+    .est-cabecalho {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; flex-wrap: wrap; gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .est-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+    .est-card {
+      border-radius: 6px; overflow: hidden;
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .est-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201,168,76,0.3);
+    }
+    .est-foto {
+      height: 170px; overflow: hidden; position: relative;
+    }
+    .est-foto img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform 0.4s;
+    }
+    .est-card:hover .est-foto img { transform: scale(1.05); }
+    .est-pais {
+      position: absolute; top: 0.7rem; right: 0.7rem;
+      background: rgba(10,22,40,0.85);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: var(--gold); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.2rem 0.55rem; border-radius: 2px;
+    }
+    .est-info { padding: 1rem 1.1rem; }
+    .est-nome { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.15rem; }
+    .est-cidade { font-size: 0.78rem; color: var(--gray); margin-bottom: 0.5rem; }
+    .est-cap { font-size: 0.75rem; color: var(--gray); }
+    .est-cap strong { color: var(--white); }
+
+    /* GRUPOS */
+    #grupos { background: var(--navy); }
+    .grupos-cabecalho { margin-bottom: 2.5rem; }
+    .grupos-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.1rem;
+    }
+    .grupo-card {
+      background: var(--navy2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 6px; overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .grupo-card:hover { border-color: rgba(201,168,76,0.25); }
+    .grupo-topo {
+      background: var(--navy3); padding: 0.7rem 1rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .grupo-letra {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.4rem; font-weight: 700; color: var(--gold);
+    }
+    .grupo-qtd {
+      font-size: 0.62rem; color: var(--gray);
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .grupo-lista { padding: 0.3rem 0; }
+    .time-linha {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.5rem 1rem; font-size: 0.84rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+    .time-linha:last-child { border-bottom: none; }
+    .time-linha:hover { background: rgba(255,255,255,0.03); }
+    .time-bandeira { width: 22px; font-size: 1.1rem; }
+    .time-nome { flex: 1; font-weight: 500; }
+    .time-conf {
+      font-size: 0.6rem; font-weight: 600;
+      color: var(--gray); letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.06);
+      padding: 0.12rem 0.4rem; border-radius: 2px;
+    }
+
+    /* TIMES CTA */
     #times {
-      background: linear-gradient(135deg, var(--navy-2) 0%, var(--navy-3) 50%, var(--navy-2) 100%);
-      text-align: center; padding: 7rem 2rem;
-      position: relative; overflow: hidden;
+      background: var(--navy2);
+      text-align: center; padding: 6rem 2rem;
     }
-    #times::before {
-      content: '⚽';
-      position: absolute; font-size: 30rem; opacity: .03;
-      top: 50%; left: 50%; transform: translate(-50%,-50%);
-      pointer-events: none;
+    .cta-box {
+      max-width: 600px; margin: 0 auto;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 8px; padding: 3rem 2.5rem;
+      background: rgba(255,255,255,0.02);
     }
-    .crud-card {
-      position: relative; max-width: 680px; margin: 0 auto;
-      background: rgba(255,255,255,.03); border: 1px solid rgba(201,168,76,.25);
-      border-radius: 16px; padding: 3.5rem 3rem;
+    .cta-box .sec-titulo { font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+    .cta-box .sec-desc { max-width: 100%; margin: 0.8rem auto 0; }
+    .cta-itens {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.6rem; margin: 1.8rem 0; text-align: left;
     }
-    .crud-trophy { font-size: 4rem; margin-bottom: 1.2rem; }
-    .crud-card .section-title { font-size: clamp(2rem, 4vw, 3.2rem); }
-    .crud-card .section-desc { max-width: 100%; margin: 1rem auto 0; text-align: center; }
-    .crud-actions { display: flex; gap: 1rem; justify-content: center; margin-top: 2.2rem; flex-wrap: wrap; }
-    .crud-features {
-      display: grid; grid-template-columns: 1fr 1fr; gap: .8rem;
-      margin: 2rem 0; text-align: left;
+    .cta-item {
+      font-size: 0.82rem; color: var(--gray);
+      display: flex; align-items: center; gap: 0.5rem;
     }
-    .crud-feat {
-      display: flex; align-items: center; gap: .6rem;
-      font-size: .82rem; color: var(--gray);
+    .cta-item::before {
+      content: '--'; color: var(--gold);
+      font-weight: 700; font-family: 'Oswald', sans-serif;
     }
-    .crud-feat::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .cta-btns { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-top: 1.8rem; }
 
-    /* ─── FOOTER ─────────────────────────────────────────────── */
+    /* FOOTER */
     footer {
       background: #050d1a;
-      border-top: 1px solid rgba(201,168,76,.12);
-      padding: 3rem 2rem;
-      text-align: center;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      padding: 2.5rem 2rem; text-align: center;
     }
-    .footer-inner { max-width: 1000px; margin: 0 auto; }
+    .footer-inner { max-width: 900px; margin: 0 auto; }
     .footer-logo {
-      font-family: var(--font-display); font-size: 2.4rem;
-      color: var(--gold); letter-spacing: .06em; margin-bottom: .5rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 0.08em;
+      margin-bottom: 0.3rem;
     }
-    .footer-tagline { color: var(--gray); font-size: .82rem; letter-spacing: .1em; }
+    .footer-sub { color: var(--gray); font-size: 0.78rem; letter-spacing: 0.1em; }
     .footer-links {
-      display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
-      margin: 1.8rem 0; list-style: none;
+      display: flex; justify-content: center;
+      gap: 2rem; list-style: none;
+      margin: 1.5rem 0;
     }
-    .footer-links a { color: var(--gray); text-decoration: none; font-size: .82rem; transition: color .2s; }
+    .footer-links a {
+      color: var(--gray); text-decoration: none;
+      font-size: 0.78rem; transition: color 0.2s;
+    }
     .footer-links a:hover { color: var(--gold); }
-    .footer-copy { font-size: .72rem; color: rgba(138,149,165,.5); }
-    .footer-flags { font-size: 1.5rem; margin-bottom: .8rem; letter-spacing: .3rem; }
+    .footer-copy { font-size: 0.68rem; color: rgba(138,149,165,0.4); }
 
-    /* ─── DIVIDER LINE ───────────────────────────────────────── */
-    .gold-line {
-      width: 60px; height: 3px;
-      background: linear-gradient(90deg, var(--gold), transparent);
-      margin: 1.2rem 0;
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .sobre-grid { grid-template-columns: 1fr; }
+      .sobre-img { display: none; }
+      .est-grid { grid-template-columns: 1fr 1fr; }
+      .grupos-grid { grid-template-columns: 1fr 1fr; }
+      .numeros-grid { grid-template-columns: repeat(3, 1fr); }
+      .numero-div { display: none; }
+      nav .nav-links li:not(:last-child) { display: none; }
     }
-
-    /* ─── RESPONSIVE ─────────────────────────────────────────── */
-    @media (max-width: 768px) {
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .about-visual { display: none; }
-      .groups-grid { grid-template-columns: 1fr 1fr; }
-      .crud-features { grid-template-columns: 1fr; }
-      nav .nav-links { display: none; }
-      .hero-globe { display: none; }
-    }
-    @media (max-width: 480px) {
-      .groups-grid { grid-template-columns: 1fr; }
-      .crud-card { padding: 2rem 1.4rem; }
+    @media (max-width: 540px) {
+      .est-grid { grid-template-columns: 1fr; }
+      .grupos-grid { grid-template-columns: 1fr; }
+      .cta-itens { grid-template-columns: 1fr; }
+      .numeros-grid { grid-template-columns: 1fr 1fr; }
     }
 
-    /* ─── FADE-IN ANIMATION ──────────────────────────────────── */
-    .fade-up {
-      opacity: 0; transform: translateY(30px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    /* FADE */
+    .fade { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .fade.visivel { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
 
-  <!-- ═══ HEADER ═══════════════════════════════════════════════ -->
-  <header>
-    <nav>
-      <a class="nav-logo" href="#">
-        <span class="trophy">🏆</span>
-        COPA 2026
-      </a>
-      <ul class="nav-links">
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#grupos">Grupos</a></li>
-        <li><a href="#sedes">Sedes</a></li>
-        <li><a href="crud.html" class="nav-cta">⚽ Gerenciar Times</a></li>
-      </ul>
-    </nav>
-  </header>
+<!-- HEADER -->
+<header>
+  <nav>
+    <a class="logo" href="#">COPA 2026</a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#estadios">Estadios</a></li>
+      <li><a href="#grupos">Grupos</a></li>
+      <li><a href="crud.html" class="btn">Gerenciar Times</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <!-- ═══ HERO ═════════════════════════════════════════════════ -->
-  <main>
-    <section class="hero" aria-label="Copa do Mundo 2026">
-      <div class="hero-globe" aria-hidden="true"></div>
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-sub">FIFA World Cup 2026</p>
+  <h1 class="hero-title">COPA<br><span>2026</span></h1>
+  <p class="hero-desc">Canada · Mexico · USA</p>
 
-      <div class="hero-badge">FIFA World Cup™ Official</div>
-
-      <h1 class="hero-title">COPA<br><span>2026</span></h1>
-      <p class="hero-sub">FIFA World Cup™ — Canada · Mexico · USA</p>
-
-      <div class="hero-hosts" aria-label="Países anfitriões">
-        <div class="host-flag">
-          <div class="flag-circle">🇨🇦</div>
-          <span class="flag-label">Canadá</span>
-        </div>
-        <span class="host-sep">✦</span>
-        <div class="host-flag">
-          <div class="flag-circle">🇲🇽</div>
-          <span class="flag-label">México</span>
-        </div>
-        <span class="host-sep">✦</span>
-        <div class="host-flag">
-          <div class="flag-circle">🇺🇸</div>
-          <span class="flag-label">EUA</span>
-        </div>
+  <div class="hero-paises">
+    <div class="pais">
+      <div class="pais-bandeira">
+        <img src="https://flagcdn.com/w80/ca.png" alt="Canada"/>
       </div>
-
-      <p class="hero-date"><strong>11 de Junho</strong> — <strong>19 de Julho</strong> de 2026</p>
-
-      <div class="hero-actions">
-        <a href="crud.html" class="btn-primary">⚽ Gerenciar Times</a>
-        <a href="#sobre" class="btn-outline">Saiba Mais</a>
-      </div>
-
-      <div class="scroll-hint" aria-hidden="true">
-        <div class="scroll-line"></div>
-        <span>Scroll</span>
-      </div>
-    </section>
-
-    <!-- ═══ STAT BAR ══════════════════════════════════════════ -->
-    <div class="stat-bar" role="region" aria-label="Números da Copa">
-      <div class="stat-grid">
-        <div class="stat-item">
-          <div class="stat-num">48</div>
-          <div class="stat-label">Seleções</div>
-        </div>
-        <div class="stat-divider" aria-hidden="true"></div>
-        <div class="stat-item">
-          <div class="stat-num">104</div>
-          <div class="stat-label">Jogos</div>
-        </div>
-        <div class="stat-divider" aria-hidden="true"></div>
-        <div class="stat-item">
-          <div class="stat-num">16</div>
-          <div class="stat-label">Grupos</div>
-        </div>
-        <div class="stat-divider" aria-hidden="true"></div>
-        <div class="stat-item">
-          <div class="stat-num">3</div>
-          <div class="stat-label">Países-Sede</div>
-        </div>
-        <div class="stat-divider" aria-hidden="true"></div>
-        <div class="stat-item">
-          <div class="stat-num">16</div>
-          <div class="stat-label">Estádios</div>
-        </div>
-      </div>
+      <span class="pais-nome">Canada</span>
     </div>
-
-    <!-- ═══ SOBRE ══════════════════════════════════════════════ -->
-    <section id="sobre">
-      <div class="section-inner">
-        <div class="about-grid">
-          <!-- SVG campo de futebol -->
-          <div class="about-visual" aria-hidden="true">
-            <svg class="pitch-svg" viewBox="0 0 400 270" xmlns="http://www.w3.org/2000/svg">
-              <rect width="400" height="270" rx="8" fill="#1a4a25"/>
-              <!-- listras do campo -->
-              <rect x="0" y="0" width="50" height="270" fill="#1d5029" opacity=".5"/>
-              <rect x="100" y="0" width="50" height="270" fill="#1d5029" opacity=".5"/>
-              <rect x="200" y="0" width="50" height="270" fill="#1d5029" opacity=".5"/>
-              <rect x="300" y="0" width="50" height="270" fill="#1d5029" opacity=".5"/>
-              <!-- bordas -->
-              <rect x="16" y="16" width="368" height="238" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
-              <!-- linha central -->
-              <line x1="200" y1="16" x2="200" y2="254" stroke="#fff" stroke-width="2" opacity=".7"/>
-              <!-- círculo central -->
-              <circle cx="200" cy="135" r="40" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
-              <circle cx="200" cy="135" r="3" fill="#fff" opacity=".7"/>
-              <!-- área esquerda -->
-              <rect x="16" y="72" width="60" height="126" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
-              <rect x="16" y="99" width="28" height="72" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
-              <circle cx="80" cy="135" r="3" fill="#fff" opacity=".7"/>
-              <!-- área direita -->
-              <rect x="324" y="72" width="60" height="126" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
-              <rect x="356" y="99" width="28" height="72" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
-              <circle cx="320" cy="135" r="3" fill="#fff" opacity=".7"/>
-              <!-- gol esquerdo -->
-              <rect x="4" y="110" width="12" height="50" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/>
-              <!-- gol direito -->
-              <rect x="384" y="110" width="12" height="50" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/>
-              <!-- cantos -->
-              <path d="M16,16 Q24,16 24,24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".5"/>
-              <path d="M384,16 Q376,16 376,24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".5"/>
-              <path d="M16,254 Q24,254 24,246" fill="none" stroke="#fff" stroke-width="1.5" opacity=".5"/>
-              <path d="M384,254 Q376,254 376,246" fill="none" stroke="#fff" stroke-width="1.5" opacity=".5"/>
-              <!-- troféu no centro -->
-              <text x="200" y="142" text-anchor="middle" font-size="28" opacity=".6">🏆</text>
-            </svg>
-          </div>
-
-          <!-- texto -->
-          <div>
-            <p class="section-eyebrow">Sobre o Torneio</p>
-            <h2 class="section-title">A maior Copa da história</h2>
-            <div class="gold-line"></div>
-            <p class="section-desc">
-              A Copa do Mundo FIFA 2026 será um marco histórico: pela primeira vez, 48 seleções
-              disputarão o torneio em três países anfitriões — Canadá, México e Estados Unidos.
-              São 104 partidas, 16 grupos e um novo formato que promete elevar o futebol a
-              outro nível de emoção.
-            </p>
-
-            <div class="about-features">
-              <div class="feature-row fade-up">
-                <div class="feature-icon">🌎</div>
-                <div class="feature-text">
-                  <h4>3 Países Anfitriões</h4>
-                  <p>Pela primeira vez na história, três nações dividem a organização do maior evento esportivo do planeta.</p>
-                </div>
-              </div>
-              <div class="feature-row fade-up">
-                <div class="feature-icon">⚽</div>
-                <div class="feature-text">
-                  <h4>48 Seleções</h4>
-                  <p>Expansão histórica: mais países participando, mais emoção, mais surpresas e novos heróis mundiais.</p>
-                </div>
-              </div>
-              <div class="feature-row fade-up">
-                <div class="feature-icon">🏟️</div>
-                <div class="feature-text">
-                  <h4>16 Estádios Icônicos</h4>
-                  <p>Dos Andes ao Ártico, arenas de classe mundial em 16 cidades prontas para receber a festa do futebol.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <span class="hero-sep">/</span>
+    <div class="pais">
+      <div class="pais-bandeira">
+        <img src="https://flagcdn.com/w80/mx.png" alt="Mexico"/>
       </div>
-    </section>
-
-    <!-- ═══ GRUPOS ════════════════════════════════════════════ -->
-    <section id="grupos">
-      <div class="section-inner">
-        <div class="groups-intro">
-          <div>
-            <p class="section-eyebrow">Fase de Grupos</p>
-            <h2 class="section-title">16 grupos, 48 nações</h2>
-          </div>
-          <p class="section-desc" style="max-width:360px">
-            Cada grupo reúne 3 seleções. Os dois primeiros de cada grupo avançam para a fase eliminatória.
-          </p>
-        </div>
-
-        <div class="groups-grid" id="groupsGrid">
-          <!-- populated by JS -->
-        </div>
+      <span class="pais-nome">Mexico</span>
+    </div>
+    <span class="hero-sep">/</span>
+    <div class="pais">
+      <div class="pais-bandeira">
+        <img src="https://flagcdn.com/w80/us.png" alt="USA"/>
       </div>
-    </section>
+      <span class="pais-nome">USA</span>
+    </div>
+  </div>
 
-    <!-- ═══ SEDES ══════════════════════════════════════════════ -->
-    <section id="sedes">
-      <div class="section-inner">
-        <p class="section-eyebrow">Estádios e Sedes</p>
-        <h2 class="section-title">Onde a história será escrita</h2>
-        <div class="gold-line"></div>
-        <p class="section-desc">Dezesseis cidades, três países, um único campeão.</p>
+  <p class="hero-data"><strong>11 de Junho</strong> a <strong>19 de Julho</strong> de 2026</p>
 
-        <div class="venues-grid">
-          <!-- EUA -->
-          <article class="venue-card fade-up">
-            <div class="venue-thumb">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/MetLife_Stadium_-_Opening_Night.jpg/1280px-MetLife_Stadium_-_Opening_Night.jpg"
-                alt="MetLife Stadium, New Jersey"
-                loading="lazy"
-                onerror="this.style.display='none';this.parentElement.querySelector('.stadium-icon').style.opacity='.6'"
-              />
-              <div class="venue-thumb-overlay"></div>
-              <span class="stadium-icon" style="display:none">🏟️</span>
-              <span class="venue-country-tag">🇺🇸 EUA</span>
-            </div>
-            <div class="venue-body">
-              <h3 class="venue-name">MetLife Stadium</h3>
-              <p class="venue-city">East Rutherford, Nova Jersey</p>
-              <div class="venue-cap">🪑 Capacidade: <strong>82.500</strong> lugares</div>
-            </div>
-          </article>
-          <article class="venue-card fade-up">
-            <div class="venue-thumb">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/AT%26T_Stadium_-_exterior.jpg/1280px-AT%26T_Stadium_-_exterior.jpg"
-                alt="AT&T Stadium, Arlington Texas"
-                loading="lazy"
-                onerror="this.style.display='none';this.parentElement.querySelector('.stadium-icon').style.opacity='.6'"
-              />
-              <div class="venue-thumb-overlay"></div>
-              <span class="stadium-icon" style="display:none">🏟️</span>
-              <span class="venue-country-tag">🇺🇸 EUA</span>
-            </div>
-            <div class="venue-body">
-              <h3 class="venue-name">AT&T Stadium</h3>
-              <p class="venue-city">Arlington, Texas</p>
-              <div class="venue-cap">🪑 Capacidade: <strong>80.000</strong> lugares</div>
-            </div>
-          </article>
-          <article class="venue-card fade-up">
-            <div class="venue-thumb">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/SoFi_Stadium_-_exterior_%28cropped%29.jpg/1280px-SoFi_Stadium_-_exterior_%28cropped%29.jpg"
-                alt="SoFi Stadium, Inglewood Califórnia"
-                loading="lazy"
-                onerror="this.style.display='none';this.parentElement.querySelector('.stadium-icon').style.opacity='.6'"
-              />
-              <div class="venue-thumb-overlay"></div>
-              <span class="stadium-icon" style="display:none">🏟️</span>
-              <span class="venue-country-tag">🇺🇸 EUA</span>
-            </div>
-            <div class="venue-body">
-              <h3 class="venue-name">SoFi Stadium</h3>
-              <p class="venue-city">Inglewood, Califórnia</p>
-              <div class="venue-cap">🪑 Capacidade: <strong>70.240</strong> lugares</div>
-            </div>
-          </article>
-          <!-- México -->
-          <article class="venue-card fade-up">
-            <div class="venue-thumb">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Estadio_Azteca_2014.jpg/1280px-Estadio_Azteca_2014.jpg"
-                alt="Estadio Azteca, Cidade do México"
-                loading="lazy"
-                onerror="this.style.display='none';this.parentElement.querySelector('.stadium-icon').style.opacity='.6'"
-              />
-              <div class="venue-thumb-overlay"></div>
-              <span class="stadium-icon" style="display:none">🏟️</span>
-              <span class="venue-country-tag">🇲🇽 México</span>
-            </div>
-            <div class="venue-body">
-              <h3 class="venue-name">Estadio Azteca</h3>
-              <p class="venue-city">Cidade do México</p>
-              <div class="venue-cap">🪑 Capacidade: <strong>87.523</strong> lugares</div>
-            </div>
-          </article>
-          <article class="venue-card fade-up">
-            <div class="venue-thumb">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Estadio_BBVA_Bancomer_-_Diciembre_2017.jpg/1280px-Estadio_BBVA_Bancomer_-_Diciembre_2017.jpg"
-                alt="Estadio BBVA, Monterrey"
-                loading="lazy"
-                onerror="this.style.display='none';this.parentElement.querySelector('.stadium-icon').style.opacity='.6'"
-              />
-              <div class="venue-thumb-overlay"></div>
-              <span class="stadium-icon" style="display:none">🏟️</span>
-              <span class="venue-country-tag">🇲🇽 México</span>
-            </div>
-            <div class="venue-body">
-              <h3 class="venue-name">Estadio BBVA</h3>
-              <p class="venue-city">Monterrey</p>
-              <div class="venue-cap">🪑 Capacidade: <strong>51.348</strong> lugares</div>
-            </div>
-          </article>
-          <!-- Canadá -->
-          <article class="venue-card fade-up">
-            <div class="venue-thumb">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/BC_Place_stadium.jpg/1280px-BC_Place_stadium.jpg"
-                alt="BC Place, Vancouver"
-                loading="lazy"
-                onerror="this.style.display='none';this.parentElement.querySelector('.stadium-icon').style.opacity='.6'"
-              />
-              <div class="venue-thumb-overlay"></div>
-              <span class="stadium-icon" style="display:none">🏟️</span>
-              <span class="venue-country-tag">🇨🇦 Canadá</span>
-            </div>
-            <div class="venue-body">
-              <h3 class="venue-name">BC Place</h3>
-              <p class="venue-city">Vancouver, Colúmbia Britânica</p>
-              <div class="venue-cap">🪑 Capacidade: <strong>54.500</strong> lugares</div>
-            </div>
-          </article>
-        </div>
+  <div class="hero-btns">
+    <a href="crud.html" class="btn-primario">Gerenciar Times</a>
+    <a href="#sobre" class="btn-secundario">Saiba Mais</a>
+  </div>
+</section>
+
+<!-- NUMEROS -->
+<div class="numeros">
+  <div class="numeros-grid">
+    <div><div class="numero-valor">48</div><div class="numero-label">Selecoes</div></div>
+    <div class="numero-div"></div>
+    <div><div class="numero-valor">104</div><div class="numero-label">Jogos</div></div>
+    <div class="numero-div"></div>
+    <div><div class="numero-valor">16</div><div class="numero-label">Grupos</div></div>
+    <div class="numero-div"></div>
+    <div><div class="numero-valor">3</div><div class="numero-label">Paises Sede</div></div>
+    <div class="numero-div"></div>
+    <div><div class="numero-valor">16</div><div class="numero-label">Estadios</div></div>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="inner">
+    <div class="sobre-grid">
+      <div class="sobre-img fade">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Estadio_Azteca_2014.jpg/1280px-Estadio_Azteca_2014.jpg"
+          alt="Estadio Azteca"
+          loading="lazy"
+        />
       </div>
-    </section>
-
-    <!-- ═══ CRUD CTA ══════════════════════════════════════════ -->
-    <section id="times">
-      <div class="crud-card fade-up">
-        <div class="crud-trophy" aria-hidden="true">🏆</div>
-        <p class="section-eyebrow" style="text-align:center">Gerenciamento</p>
-        <h2 class="section-title">Times da Copa</h2>
-        <div class="gold-line" style="margin: 1rem auto;"></div>
-        <p class="section-desc">
-          Acesse o sistema completo de gerenciamento das seleções participantes.
-          Cadastre, edite, visualize e remova times com facilidade.
+      <div class="fade">
+        <p class="sec-label">Sobre o Torneio</p>
+        <h2 class="sec-titulo">A maior Copa da historia</h2>
+        <div class="linha-ouro"></div>
+        <p class="sec-desc">
+          A Copa do Mundo FIFA 2026 sera historica: pela primeira vez, 48 selecoes disputarao o torneio em tres paises anfitrioes. Novo formato, mais jogos e muito mais emocao do inicio ao fim.
         </p>
-
-        <div class="crud-features">
-          <div class="crud-feat">Cadastrar novas seleções</div>
-          <div class="crud-feat">Visualizar todos os times</div>
-          <div class="crud-feat">Editar informações</div>
-          <div class="crud-feat">Remover registros</div>
-        </div>
-
-        <div class="crud-actions">
-          <a href="crud.html" class="btn-primary">⚽ Acessar Gerenciador</a>
-          <a href="#grupos" class="btn-outline">Ver Grupos</a>
+        <div class="recursos">
+          <div class="recurso">
+            <div class="recurso-icone">3</div>
+            <div>
+              <h4>Tres Paises Anfitrioes</h4>
+              <p>Canada, Mexico e Estados Unidos dividem a organizacao do maior evento esportivo do mundo.</p>
+            </div>
+          </div>
+          <div class="recurso">
+            <div class="recurso-icone">48</div>
+            <div>
+              <h4>48 Selecoes</h4>
+              <p>Expansao historica: mais paises, mais surpresas e novos herois mundiais a cada partida.</p>
+            </div>
+          </div>
+          <div class="recurso">
+            <div class="recurso-icone">16</div>
+            <div>
+              <h4>16 Estadios</h4>
+              <p>Arenas de classe mundial espalhadas pelos tres paises prontas para receber a festa do futebol.</p>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
-  </main>
-
-  <!-- ═══ FOOTER ════════════════════════════════════════════════ -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-flags" aria-hidden="true">🇨🇦 🇲🇽 🇺🇸</div>
-      <div class="footer-logo">COPA 2026</div>
-      <p class="footer-tagline">FIFA World Cup™ · Canada · México · USA</p>
-      <ul class="footer-links">
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#grupos">Grupos</a></li>
-        <li><a href="#sedes">Sedes</a></li>
-        <li><a href="crud.html">Gerenciar Times</a></li>
-      </ul>
-      <p class="footer-copy">
-        Projeto acadêmico — Copa do Mundo FIFA 2026 · Junho–Julho 2026
-      </p>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <!-- ═══ SCRIPTS ═══════════════════════════════════════════════ -->
-  <script>
-    /* ── Groups data ── */
-    const groups = [
-      { letter:'A', teams:[{f:'🇧🇷',n:'Brasil',c:'CONMEBOL'},{f:'🇨🇭',n:'Suíça',c:'UEFA'},{f:'🇸🇳',n:'Senegal',c:'CAF'}] },
-      { letter:'B', teams:[{f:'🇩🇪',n:'Alemanha',c:'UEFA'},{f:'🇯🇵',n:'Japão',c:'AFC'},{f:'🇲🇦',n:'Marrocos',c:'CAF'}] },
-      { letter:'C', teams:[{f:'🇦🇷',n:'Argentina',c:'CONMEBOL'},{f:'🇵🇱',n:'Polônia',c:'UEFA'},{f:'🇲🇽',n:'México',c:'CONCACAF'}] },
-      { letter:'D', teams:[{f:'🇫🇷',n:'França',c:'UEFA'},{f:'🇦🇺',n:'Austrália',c:'AFC'},{f:'🇨🇦',n:'Canadá',c:'CONCACAF'}] },
-      { letter:'E', teams:[{f:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',n:'Inglaterra',c:'UEFA'},{f:'🇮🇷',n:'Irã',c:'AFC'},{f:'🇺🇸',n:'EUA',c:'CONCACAF'}] },
-      { letter:'F', teams:[{f:'🇪🇸',n:'Espanha',c:'UEFA'},{f:'🇨🇷',n:'Costa Rica',c:'CONCACAF'},{f:'🇳🇬',n:'Nigéria',c:'CAF'}] },
-      { letter:'G', teams:[{f:'🇵🇹',n:'Portugal',c:'UEFA'},{f:'🇺🇾',n:'Uruguai',c:'CONMEBOL'},{f:'🇬🇭',n:'Gana',c:'CAF'}] },
-      { letter:'H', teams:[{f:'🇳🇱',n:'Holanda',c:'UEFA'},{f:'🇪🇨',n:'Equador',c:'CONMEBOL'},{f:'🇰🇷',n:'Coreia Sul',c:'AFC'}] },
-    ];
+<!-- ESTADIOS -->
+<section id="estadios">
+  <div class="inner">
+    <div class="est-cabecalho">
+      <div>
+        <p class="sec-label">Sedes</p>
+        <h2 class="sec-titulo">Estadios da Copa</h2>
+      </div>
+      <p class="sec-desc" style="max-width:320px">Dezesseis arenas em tres paises onde a historia sera escrita.</p>
+    </div>
 
-    const grid = document.getElementById('groupsGrid');
-    groups.forEach(g => {
-      const card = document.createElement('article');
-      card.className = 'group-card fade-up';
-      card.innerHTML = `
-        <div class="group-header">
-          <span class="group-letter">Grupo ${g.letter}</span>
-          <span class="group-count">3 seleções</span>
+    <div class="est-grid">
+      <article class="est-card fade">
+        <div class="est-foto">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/MetLife_Stadium_-_Opening_Night.jpg/1280px-MetLife_Stadium_-_Opening_Night.jpg" alt="MetLife Stadium" loading="lazy"/>
+          <span class="est-pais">EUA</span>
         </div>
-        <div class="group-teams">
-          ${g.teams.map(t => `
-            <div class="team-row">
-              <span class="team-flag">${t.f}</span>
-              <span class="team-name">${t.n}</span>
-              <span class="team-conf">${t.c}</span>
-            </div>`).join('')}
-        </div>`;
-      grid.appendChild(card);
-    });
+        <div class="est-info">
+          <div class="est-nome">MetLife Stadium</div>
+          <div class="est-cidade">East Rutherford, Nova Jersey</div>
+          <div class="est-cap">Capacidade: <strong>82.500</strong> lugares</div>
+        </div>
+      </article>
 
-    /* ── Fade-in on scroll ── */
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  </script>
+      <article class="est-card fade">
+        <div class="est-foto">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/AT%26T_Stadium_-_exterior.jpg/1280px-AT%26T_Stadium_-_exterior.jpg" alt="AT&T Stadium" loading="lazy"/>
+          <span class="est-pais">EUA</span>
+        </div>
+        <div class="est-info">
+          <div class="est-nome">AT&T Stadium</div>
+          <div class="est-cidade">Arlington, Texas</div>
+          <div class="est-cap">Capacidade: <strong>80.000</strong> lugares</div>
+        </div>
+      </article>
+
+      <article class="est-card fade">
+        <div class="est-foto">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/SoFi_Stadium_-_exterior_%28cropped%29.jpg/1280px-SoFi_Stadium_-_exterior_%28cropped%29.jpg" alt="SoFi Stadium" loading="lazy"/>
+          <span class="est-pais">EUA</span>
+        </div>
+        <div class="est-info">
+          <div class="est-nome">SoFi Stadium</div>
+          <div class="est-cidade">Inglewood, California</div>
+          <div class="est-cap">Capacidade: <strong>70.240</strong> lugares</div>
+        </div>
+      </article>
+
+      <article class="est-card fade">
+        <div class="est-foto">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Estadio_Azteca_2014.jpg/1280px-Estadio_Azteca_2014.jpg" alt="Estadio Azteca" loading="lazy"/>
+          <span class="est-pais">Mexico</span>
+        </div>
+        <div class="est-info">
+          <div class="est-nome">Estadio Azteca</div>
+          <div class="est-cidade">Cidade do Mexico</div>
+          <div class="est-cap">Capacidade: <strong>87.523</strong> lugares</div>
+        </div>
+      </article>
+
+      <article class="est-card fade">
+        <div class="est-foto">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Estadio_BBVA_Bancomer_-_Diciembre_2017.jpg/1280px-Estadio_BBVA_Bancomer_-_Diciembre_2017.jpg" alt="Estadio BBVA" loading="lazy"/>
+          <span class="est-pais">Mexico</span>
+        </div>
+        <div class="est-info">
+          <div class="est-nome">Estadio BBVA</div>
+          <div class="est-cidade">Monterrey</div>
+          <div class="est-cap">Capacidade: <strong>51.348</strong> lugares</div>
+        </div>
+      </article>
+
+      <article class="est-card fade">
+        <div class="est-foto">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/BC_Place_stadium.jpg/1280px-BC_Place_stadium.jpg" alt="BC Place" loading="lazy"/>
+          <span class="est-pais">Canada</span>
+        </div>
+        <div class="est-info">
+          <div class="est-nome">BC Place</div>
+          <div class="est-cidade">Vancouver, Columbia Britanica</div>
+          <div class="est-cap">Capacidade: <strong>54.500</strong> lugares</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- GRUPOS -->
+<section id="grupos">
+  <div class="inner">
+    <div class="grupos-cabecalho">
+      <p class="sec-label">Fase de Grupos</p>
+      <h2 class="sec-titulo">Os Grupos da Copa</h2>
+      <div class="linha-ouro"></div>
+      <p class="sec-desc">16 grupos com 3 selecoes cada. Os dois primeiros avancam para a fase eliminatoria.</p>
+    </div>
+    <div class="grupos-grid" id="gruposGrid"></div>
+  </div>
+</section>
+
+<!-- TIMES CTA -->
+<section id="times">
+  <div class="cta-box fade">
+    <p class="sec-label">Gerenciamento</p>
+    <h2 class="sec-titulo">Times da Copa</h2>
+    <div class="linha-ouro" style="margin: 1rem auto;"></div>
+    <p class="sec-desc">Acesse o sistema de gerenciamento das selecoes participantes. Cadastre, edite e remova times com facilidade.</p>
+    <div class="cta-itens">
+      <div class="cta-item">Cadastrar selecoes</div>
+      <div class="cta-item">Visualizar todos os times</div>
+      <div class="cta-item">Editar informacoes</div>
+      <div class="cta-item">Remover registros</div>
+    </div>
+    <div class="cta-btns">
+      <a href="crud.html" class="btn-primario">Acessar Gerenciador</a>
+      <a href="#grupos" class="btn-secundario">Ver Grupos</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">COPA 2026</div>
+    <p class="footer-sub">FIFA World Cup · Canada · Mexico · USA</p>
+    <ul class="footer-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#estadios">Estadios</a></li>
+      <li><a href="#grupos">Grupos</a></li>
+      <li><a href="crud.html">Gerenciar Times</a></li>
+    </ul>
+    <p class="footer-copy">Projeto academico — Copa do Mundo FIFA 2026</p>
+  </div>
+</footer>
+
+<script>
+  const grupos = [
+    {l:'A', times:[{f:'🇧🇷',n:'Brasil',c:'CSB'},{f:'🇨🇭',n:'Suica',c:'UEFA'},{f:'🇸🇳',n:'Senegal',c:'CAF'}]},
+    {l:'B', times:[{f:'🇩🇪',n:'Alemanha',c:'UEFA'},{f:'🇯🇵',n:'Japao',c:'AFC'},{f:'🇲🇦',n:'Marrocos',c:'CAF'}]},
+    {l:'C', times:[{f:'🇦🇷',n:'Argentina',c:'CSB'},{f:'🇵🇱',n:'Polonia',c:'UEFA'},{f:'🇲🇽',n:'Mexico',c:'CCF'}]},
+    {l:'D', times:[{f:'🇫🇷',n:'Franca',c:'UEFA'},{f:'🇦🇺',n:'Australia',c:'AFC'},{f:'🇨🇦',n:'Canada',c:'CCF'}]},
+    {l:'E', times:[{f:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',n:'Inglaterra',c:'UEFA'},{f:'🇮🇷',n:'Ira',c:'AFC'},{f:'🇺🇸',n:'EUA',c:'CCF'}]},
+    {l:'F', times:[{f:'🇪🇸',n:'Espanha',c:'UEFA'},{f:'🇨🇷',n:'Costa Rica',c:'CCF'},{f:'🇳🇬',n:'Nigeria',c:'CAF'}]},
+    {l:'G', times:[{f:'🇵🇹',n:'Portugal',c:'UEFA'},{f:'🇺🇾',n:'Uruguai',c:'CSB'},{f:'🇬🇭',n:'Gana',c:'CAF'}]},
+    {l:'H', times:[{f:'🇳🇱',n:'Holanda',c:'UEFA'},{f:'🇪🇨',n:'Equador',c:'CSB'},{f:'🇰🇷',n:'Coreia Sul',c:'AFC'}]},
+  ];
+
+  const grid = document.getElementById('gruposGrid');
+  grupos.forEach(g => {
+    const card = document.createElement('div');
+    card.className = 'grupo-card fade';
+    card.innerHTML = `
+      <div class="grupo-topo">
+        <span class="grupo-letra">Grupo ${g.l}</span>
+        <span class="grupo-qtd">3 selecoes</span>
+      </div>
+      <div class="grupo-lista">
+        ${g.times.map(t => `
+          <div class="time-linha">
+            <span class="time-bandeira">${t.f}</span>
+            <span class="time-nome">${t.n}</span>
+            <span class="time-conf">${t.c}</span>
+          </div>`).join('')}
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visivel'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
