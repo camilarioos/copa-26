@@ -4,600 +4,594 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gerenciar Times – Copa 2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --gold:    #C9A84C;
-      --gold-lt: #F0D080;
-      --red:     #C8102E;
-      --green:   #2d8a3e;
-      --navy:    #0A1628;
-      --navy-2:  #112040;
-      --navy-3:  #1A2F55;
-      --white:   #F5F5F5;
-      --gray:    #8A95A5;
-      --border:  rgba(255,255,255,.08);
-      --danger:  #c0392b;
-      --success: #27ae60;
-
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-title:   'Oswald', sans-serif;
-      --font-body:    'Inter', sans-serif;
+      --gold:  #C9A84C;
+      --navy:  #0A1628;
+      --navy2: #112040;
+      --navy3: #1A2F55;
+      --white: #F4F4F4;
+      --gray:  #8A95A5;
+      --red:   #c0392b;
+      --green: #27ae60;
     }
-    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
-    html { scroll-behavior:smooth; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       background: var(--navy);
       color: var(--white);
-      font-family: var(--font-body);
+      font-family: 'Inter', sans-serif;
       min-height: 100vh;
     }
 
-    /* ── HEADER ── */
+    /* HEADER */
     header {
-      background: rgba(10,22,40,.96);
-      border-bottom: 1px solid rgba(201,168,76,.25);
-      padding: 0 2rem; height: 64px;
-      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,22,40,0.97);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      height: 60px;
+      display: flex; align-items: center;
       position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(12px);
     }
-    .header-brand {
-      display: flex; align-items: center; gap: .7rem;
-      font-family: var(--font-title); font-size: 1.15rem; font-weight: 700;
-      color: var(--gold); text-decoration: none; letter-spacing: .06em;
+    nav {
+      max-width: 1100px; margin: 0 auto;
+      width: 100%; padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .back-btn {
-      display: flex; align-items: center; gap: .5rem;
-      color: var(--gray); text-decoration: none; font-size: .82rem;
-      font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
-      transition: color .2s;
+    .logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--gold); text-decoration: none;
+      letter-spacing: 0.08em;
     }
-    .back-btn:hover { color: var(--gold); }
+    .voltar {
+      color: var(--gray); text-decoration: none;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .voltar:hover { color: var(--gold); }
 
-    /* ── PAGE LAYOUT ── */
-    .page { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+    /* PAGINA */
+    .pagina { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem 5rem; }
 
-    /* ── PAGE TITLE ── */
-    .page-header { margin-bottom: 2.5rem; }
-    .page-eyebrow {
-      font-family: var(--font-title); font-size: .72rem; font-weight: 600;
-      letter-spacing: .2em; text-transform: uppercase; color: var(--gold);
-      margin-bottom: .4rem;
+    .pagina-topo { margin-bottom: 2.5rem; }
+    .pagina-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.4rem;
     }
-    .page-title {
-      font-family: var(--font-display); font-size: clamp(2.4rem,5vw,3.6rem);
-      line-height: 1; color: var(--white);
+    .pagina-titulo {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; color: var(--white); line-height: 1;
     }
-    .gold-line { width:50px; height:3px; background:linear-gradient(90deg,var(--gold),transparent); margin:.8rem 0; }
-    .page-desc { color: var(--gray); font-size: .9rem; line-height:1.65; max-width:520px; }
+    .linha-ouro { width: 48px; height: 2px; background: var(--gold); margin: 0.8rem 0; }
+    .pagina-desc { font-size: 0.88rem; color: var(--gray); line-height: 1.65; }
 
-    /* ── TWO-COLUMN LAYOUT ── */
-    .crud-layout { display: grid; grid-template-columns: 360px 1fr; gap: 2rem; align-items: start; }
+    /* LAYOUT DUAS COLUNAS */
+    .layout { display: grid; grid-template-columns: 320px 1fr; gap: 2rem; align-items: start; }
 
-    /* ── FORM CARD ── */
+    /* CARD FORMULARIO */
     .form-card {
-      background: var(--navy-2); border: 1px solid var(--border);
-      border-radius: 12px; overflow: hidden; position: sticky; top: 80px;
+      background: var(--navy2);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px; overflow: hidden;
+      position: sticky; top: 76px;
     }
-    .form-card-header {
-      padding: 1.2rem 1.5rem;
-      background: linear-gradient(135deg, var(--navy-3), var(--navy-2));
-      border-bottom: 1px solid rgba(201,168,76,.2);
-      display: flex; align-items: center; gap: .75rem;
+    .form-topo {
+      background: var(--navy3);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 1rem 1.4rem;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .form-card-header h2 {
-      font-family: var(--font-title); font-size: 1rem; font-weight: 600;
-      letter-spacing: .06em;
+    .form-topo h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
     }
-    .form-badge {
-      background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.3);
-      color: var(--gold); font-size: .65rem; font-weight: 700;
-      letter-spacing: .1em; text-transform: uppercase;
-      padding: .2rem .55rem; border-radius: 3px; margin-left: auto;
+    .form-modo {
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 0.2rem 0.55rem; border-radius: 2px;
     }
-    .form-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
+    .form-corpo { padding: 1.4rem; display: flex; flex-direction: column; gap: 1rem; }
 
-    /* ── FORM FIELDS ── */
-    .field label {
-      display: block; font-size: .75rem; font-weight: 600;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: var(--gray); margin-bottom: .45rem;
+    .campo label {
+      display: block; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gray); margin-bottom: 0.4rem;
     }
-    .field input, .field select {
-      width: 100%; background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.12); border-radius: 6px;
-      color: var(--white); font-family: var(--font-body); font-size: .9rem;
-      padding: .7rem 1rem; outline: none;
-      transition: border-color .2s, box-shadow .2s;
+    .campo input,
+    .campo select {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      padding: 0.65rem 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
     }
-    .field input:focus, .field select:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(201,168,76,.12);
-    }
-    .field input::placeholder { color: rgba(138,149,165,.5); }
-    .field select option { background: var(--navy-2); }
+    .campo input:focus,
+    .campo select:focus { border-color: var(--gold); }
+    .campo input::placeholder { color: rgba(138,149,165,0.5); }
+    .campo select option { background: var(--navy2); }
 
-    /* ── FORM ACTIONS ── */
-    .form-actions { display: flex; gap: .75rem; margin-top: .5rem; }
-    .btn-save {
-      flex: 1; background: linear-gradient(135deg, var(--gold), #a87930);
-      color: var(--navy); font-family: var(--font-title); font-size: .95rem;
-      font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-      border: none; border-radius: 6px; padding: .75rem;
-      cursor: pointer; transition: transform .15s, box-shadow .15s;
+    .form-acoes { display: flex; gap: 0.7rem; margin-top: 0.4rem; }
+    .btn-salvar {
+      flex: 1;
+      background: var(--gold); color: var(--navy);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border: none; border-radius: 4px;
+      padding: 0.7rem; cursor: pointer;
+      transition: background 0.2s;
     }
-    .btn-save:hover { transform: translateY(-2px); box-shadow: 0 4px 18px rgba(201,168,76,.4); }
-    .btn-cancel {
+    .btn-salvar:hover { background: #dbb95a; }
+    .btn-cancelar {
       background: transparent; color: var(--gray);
-      border: 1px solid var(--border); border-radius: 6px;
-      padding: .75rem 1rem; cursor: pointer;
-      font-size: .85rem; font-weight: 600; transition: border-color .2s, color .2s;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px; padding: 0.7rem 1rem;
+      font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: color 0.2s, border-color 0.2s;
+      display: none;
     }
-    .btn-cancel:hover { border-color: var(--gray); color: var(--white); }
+    .btn-cancelar:hover { color: var(--white); border-color: var(--gray); }
 
-    /* ── TABLE CARD ── */
-    .table-card {
-      background: var(--navy-2); border: 1px solid var(--border);
-      border-radius: 12px; overflow: hidden;
+    /* CARD TABELA */
+    .tabela-card {
+      background: var(--navy2);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px; overflow: hidden;
     }
-    .table-toolbar {
-      padding: 1.2rem 1.5rem;
-      background: linear-gradient(135deg, var(--navy-3), var(--navy-2));
-      border-bottom: 1px solid rgba(201,168,76,.2);
+    .tabela-topo {
+      background: var(--navy3);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 1rem 1.4rem;
       display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
     }
-    .table-toolbar h2 {
-      font-family: var(--font-title); font-size: 1rem; font-weight: 600;
-      letter-spacing: .06em; flex: 1;
+    .tabela-topo h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      flex: 1;
     }
-    .search-wrap { position: relative; }
-    .search-wrap input {
-      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 6px; color: var(--white); font-family: var(--font-body);
-      font-size: .82rem; padding: .5rem .85rem .5rem 2.2rem;
-      outline: none; width: 200px; transition: border-color .2s;
+    .busca input {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px; color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem; padding: 0.45rem 0.8rem;
+      outline: none; width: 200px;
+      transition: border-color 0.2s;
     }
-    .search-wrap input:focus { border-color: var(--gold); }
-    .search-wrap::before {
-      content: '🔍'; position: absolute; left: .6rem; top: 50%;
-      transform: translateY(-50%); font-size: .8rem; pointer-events: none;
-    }
-    .total-badge {
-      background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.25);
-      color: var(--gold); font-size: .72rem; font-weight: 700;
-      letter-spacing: .1em; padding: .3rem .75rem; border-radius: 4px;
+    .busca input:focus { border-color: var(--gold); }
+    .busca input::placeholder { color: rgba(138,149,165,0.5); }
+    .total {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.25);
+      padding: 0.25rem 0.7rem; border-radius: 2px;
       white-space: nowrap;
     }
 
-    /* ── TABLE ── */
-    .table-wrap { overflow-x: auto; }
+    /* TABELA */
+    .tabela-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; }
     thead tr {
-      background: rgba(255,255,255,.03);
-      border-bottom: 1px solid rgba(201,168,76,.15);
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid rgba(201,168,76,0.12);
     }
     th {
-      font-family: var(--font-title); font-size: .7rem; font-weight: 600;
-      letter-spacing: .14em; text-transform: uppercase; color: var(--gold);
-      padding: .85rem 1.2rem; text-align: left; white-space: nowrap;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); padding: 0.8rem 1.2rem;
+      text-align: left; white-space: nowrap;
     }
-    td { padding: .85rem 1.2rem; font-size: .88rem; border-bottom: 1px solid var(--border); }
-    tbody tr { transition: background .15s; }
-    tbody tr:hover { background: rgba(255,255,255,.025); }
+    td {
+      padding: 0.8rem 1.2rem;
+      font-size: 0.86rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    tbody tr { transition: background 0.15s; }
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
     tbody tr:last-child td { border-bottom: none; }
-    .td-id { color: var(--gray); font-size: .78rem; font-family: monospace; }
-    .td-flag { font-size: 1.4rem; }
-    .td-team { font-weight: 600; }
-    .td-country { color: var(--gray); }
-    .td-conf .conf-tag {
-      font-size: .65rem; font-weight: 700; letter-spacing: .08em;
-      text-transform: uppercase; padding: .2rem .55rem; border-radius: 3px;
+    .td-id { color: var(--gray); font-size: 0.75rem; font-family: monospace; }
+    .td-nome { font-weight: 600; }
+    .td-pais { color: var(--gray); }
+    .conf-tag {
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.15rem 0.5rem; border-radius: 2px;
+      background: rgba(255,255,255,0.07); color: var(--gray);
     }
-    .conf-CONMEBOL { background:rgba(201,168,76,.12); color:var(--gold); }
-    .conf-UEFA     { background:rgba(30,80,180,.2);   color:#6a9fd8; }
-    .conf-AFC      { background:rgba(50,130,80,.15);  color:#6abf87; }
-    .conf-CAF      { background:rgba(180,60,20,.15);  color:#e0875a; }
-    .conf-CONCACAF { background:rgba(90,40,160,.15);  color:#b08fe0; }
-    .conf-OFC      { background:rgba(20,130,160,.15); color:#5ac8e0; }
-    .conf-OUTRO    { background:rgba(255,255,255,.07); color:var(--gray); }
-
-    /* ── ROW ACTIONS ── */
-    .row-actions { display: flex; gap: .5rem; }
-    .btn-edit, .btn-delete {
-      border: none; border-radius: 5px; cursor: pointer;
-      font-size: .75rem; font-weight: 700; letter-spacing: .06em;
-      text-transform: uppercase; padding: .35rem .7rem;
-      transition: transform .15s, opacity .2s;
+    .acoes { display: flex; gap: 0.5rem; }
+    .btn-editar,
+    .btn-remover {
+      border: none; border-radius: 3px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.3rem 0.65rem; cursor: pointer;
+      transition: opacity 0.15s;
     }
-    .btn-edit   { background: rgba(201,168,76,.12); color: var(--gold); border: 1px solid rgba(201,168,76,.2); }
-    .btn-delete { background: rgba(192,57,43,.12);  color: #e87070;     border: 1px solid rgba(192,57,43,.2); }
-    .btn-edit:hover   { background: rgba(201,168,76,.22); transform: scale(1.05); }
-    .btn-delete:hover { background: rgba(192,57,43,.22);  transform: scale(1.05); }
-
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      text-align: center; padding: 4rem 2rem; color: var(--gray);
+    .btn-editar {
+      background: rgba(201,168,76,0.1);
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.2);
     }
-    .empty-icon { font-size: 3.5rem; margin-bottom: 1rem; opacity: .5; }
-    .empty-state p { font-size: .9rem; }
+    .btn-editar:hover { background: rgba(201,168,76,0.2); }
+    .btn-remover {
+      background: rgba(192,57,43,0.1);
+      color: #e07070;
+      border: 1px solid rgba(192,57,43,0.2);
+    }
+    .btn-remover:hover { background: rgba(192,57,43,0.2); }
 
-    /* ── TOAST ── */
-    #toast {
+    /* VAZIO */
+    .vazio {
+      text-align: center; padding: 3.5rem 2rem;
+      color: var(--gray); font-size: 0.88rem; line-height: 1.7;
+    }
+    .vazio strong { display: block; font-family: 'Oswald', sans-serif; font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--white); }
+
+    /* AVISO */
+    #aviso {
       position: fixed; bottom: 2rem; right: 2rem;
-      background: var(--navy-3); border-radius: 8px; padding: .85rem 1.3rem;
-      font-size: .85rem; font-weight: 600; box-shadow: 0 8px 30px rgba(0,0,0,.5);
-      border-left: 4px solid var(--green);
-      transform: translateX(120%); transition: transform .3s ease; z-index: 200;
-      display: flex; align-items: center; gap: .6rem;
+      background: var(--navy3);
+      border-left: 3px solid var(--green);
+      border-radius: 4px; padding: 0.8rem 1.2rem;
+      font-size: 0.84rem; font-weight: 600;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      transform: translateX(120%);
+      transition: transform 0.3s ease;
+      z-index: 200;
     }
-    #toast.show { transform: translateX(0); }
-    #toast.error { border-color: var(--danger); }
+    #aviso.mostrar { transform: translateX(0); }
+    #aviso.erro { border-color: var(--red); }
 
-    /* ── CONFIRM MODAL ── */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,.7);
+    /* MODAL */
+    .modal-fundo {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.65);
       display: flex; align-items: center; justify-content: center;
-      z-index: 300; opacity: 0; pointer-events: none; transition: opacity .25s;
+      z-index: 300; opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
     }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-fundo.aberto { opacity: 1; pointer-events: all; }
     .modal {
-      background: var(--navy-2); border: 1px solid rgba(201,168,76,.2);
-      border-radius: 12px; padding: 2rem; max-width: 400px; width: 90%;
-      transform: scale(.9); transition: transform .25s;
+      background: var(--navy2);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 6px; padding: 2rem;
+      max-width: 380px; width: 90%;
+      transform: scale(0.92);
+      transition: transform 0.25s;
     }
-    .modal-overlay.open .modal { transform: scale(1); }
-    .modal h3 { font-family: var(--font-title); font-size: 1.15rem; margin-bottom: .6rem; }
-    .modal p { color: var(--gray); font-size: .88rem; margin-bottom: 1.5rem; line-height: 1.6; }
-    .modal-actions { display: flex; gap: .75rem; justify-content: flex-end; }
-    .btn-confirm-del {
-      background: var(--danger); color:#fff;
-      border:none; border-radius:6px; padding:.6rem 1.2rem;
-      font-weight:700; cursor:pointer; transition:opacity .15s;
+    .modal-fundo.aberto .modal { transform: scale(1); }
+    .modal h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 0.6rem;
     }
-    .btn-confirm-del:hover { opacity:.85; }
-    .btn-modal-cancel {
-      background:transparent; color:var(--gray);
-      border:1px solid var(--border); border-radius:6px;
-      padding:.6rem 1.2rem; cursor:pointer; font-weight:600;
-      transition:color .15s;
+    .modal p { color: var(--gray); font-size: 0.86rem; line-height: 1.65; margin-bottom: 1.5rem; }
+    .modal-acoes { display: flex; gap: 0.7rem; justify-content: flex-end; }
+    .btn-confirmar {
+      background: var(--red); color: #fff;
+      border: none; border-radius: 3px;
+      padding: 0.55rem 1.1rem;
+      font-weight: 700; font-size: 0.82rem;
+      cursor: pointer; transition: opacity 0.15s;
     }
-    .btn-modal-cancel:hover { color:var(--white); }
+    .btn-confirmar:hover { opacity: 0.85; }
+    .btn-modal-cancelar {
+      background: transparent; color: var(--gray);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 3px; padding: 0.55rem 1.1rem;
+      font-weight: 600; font-size: 0.82rem;
+      cursor: pointer; transition: color 0.15s;
+    }
+    .btn-modal-cancelar:hover { color: var(--white); }
 
-    @media (max-width: 900px) {
-      .crud-layout { grid-template-columns: 1fr; }
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; }
       .form-card { position: static; }
     }
-    @media (max-width: 480px) {
-      .page { padding: 1.5rem 1rem 4rem; }
-      .table-toolbar { flex-direction: column; align-items: flex-start; }
-      .search-wrap input { width: 100%; }
+    @media (max-width: 500px) {
+      .pagina { padding: 1.5rem 1rem 4rem; }
+      .tabela-topo { flex-direction: column; align-items: flex-start; }
+      .busca input { width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <a class="header-brand" href="index.html">🏆 Copa 2026</a>
-    <a class="back-btn" href="index.html">← Voltar ao Site</a>
-  </header>
+<header>
+  <nav>
+    <a class="logo" href="index.html">COPA 2026</a>
+    <a class="voltar" href="index.html">Voltar ao site</a>
+  </nav>
+</header>
 
-  <!-- MAIN -->
-  <main class="page">
-    <div class="page-header">
-      <p class="page-eyebrow">Sistema de Gerenciamento</p>
-      <h1 class="page-title">Times da Copa</h1>
-      <div class="gold-line"></div>
-      <p class="page-desc">Cadastre, edite e gerencie as seleções participantes da Copa do Mundo FIFA 2026.</p>
-    </div>
+<main class="pagina">
 
-    <div class="crud-layout">
-
-      <!-- ── FORM ── -->
-      <aside>
-        <div class="form-card">
-          <div class="form-card-header">
-            <span>⚽</span>
-            <h2 id="formTitle">Novo Time</h2>
-            <span class="form-badge" id="formBadge">Cadastro</span>
-          </div>
-          <div class="form-body">
-            <input type="hidden" id="editId"/>
-
-            <div class="field">
-              <label for="inputNome">Nome do Time</label>
-              <input type="text" id="inputNome" placeholder="Ex: Brasil" maxlength="60" autocomplete="off"/>
-            </div>
-
-            <div class="field">
-              <label for="inputPais">País</label>
-              <input type="text" id="inputPais" placeholder="Ex: Brasil" maxlength="60" autocomplete="off"/>
-            </div>
-
-            <div class="field">
-              <label for="inputConf">Confederação</label>
-              <select id="inputConf">
-                <option value="">— Selecione —</option>
-                <option value="CONMEBOL">CONMEBOL – América do Sul</option>
-                <option value="UEFA">UEFA – Europa</option>
-                <option value="AFC">AFC – Ásia</option>
-                <option value="CAF">CAF – África</option>
-                <option value="CONCACAF">CONCACAF – América do Norte/Central</option>
-                <option value="OFC">OFC – Oceania</option>
-                <option value="OUTRO">Outro</option>
-              </select>
-            </div>
-
-            <div class="form-actions">
-              <button class="btn-save" id="btnSave" onclick="salvar()">💾 Salvar</button>
-              <button class="btn-cancel" id="btnCancel" onclick="cancelarEdicao()" style="display:none">Cancelar</button>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <!-- ── TABLE ── -->
-      <section>
-        <div class="table-card">
-          <div class="table-toolbar">
-            <h2>🌍 Seleções Cadastradas</h2>
-            <div class="search-wrap">
-              <input type="text" id="searchInput" placeholder="Buscar time..." oninput="renderTabela()"/>
-            </div>
-            <span class="total-badge" id="totalBadge">0 times</span>
-          </div>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>🏳️</th>
-                  <th>Time</th>
-                  <th>País</th>
-                  <th>Confederação</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody id="tabelaBody"></tbody>
-            </table>
-            <div class="empty-state" id="emptyState" style="display:none">
-              <div class="empty-icon">⚽</div>
-              <p>Nenhum time encontrado.<br>Cadastre a primeira seleção!</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <!-- TOAST -->
-  <div id="toast"></div>
-
-  <!-- MODAL CONFIRMAÇÃO -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-      <h3>🗑️ Remover Time</h3>
-      <p id="modalMsg">Deseja remover este time? Esta ação não pode ser desfeita.</p>
-      <div class="modal-actions">
-        <button class="btn-modal-cancel" onclick="fecharModal()">Cancelar</button>
-        <button class="btn-confirm-del" onclick="confirmarExclusao()">Remover</button>
-      </div>
-    </div>
+  <div class="pagina-topo">
+    <p class="pagina-label">Sistema de Gerenciamento</p>
+    <h1 class="pagina-titulo">Times da Copa</h1>
+    <div class="linha-ouro"></div>
+    <p class="pagina-desc">Cadastre, edite e gerencie as selecoes participantes da Copa do Mundo FIFA 2026.</p>
   </div>
 
-  <script>
-    /* ─────────────────────────────────────────────────────────
-       STATE — dados guardados em memória (localStorage como backup)
-    ───────────────────────────────────────────────────────── */
-    const STORAGE_KEY = 'copa2026_times';
+  <div class="layout">
 
-    const flagMap = {
-      'brasil':'🇧🇷','brazil':'🇧🇷','argentina':'🇦🇷','alemanha':'🇩🇪','germany':'🇩🇪',
-      'frança':'🇫🇷','france':'🇫🇷','espanha':'🇪🇸','spain':'🇪🇸','portugal':'🇵🇹',
-      'holanda':'🇳🇱','netherlands':'🇳🇱','países baixos':'🇳🇱','italia':'🇮🇹','itália':'🇮🇹',
-      'italy':'🇮🇹','belgica':'🇧🇪','bélgica':'🇧🇪','belgium':'🇧🇪','croatia':'🇭🇷','croácia':'🇭🇷',
-      'uruguai':'🇺🇾','uruguay':'🇺🇾','colombia':'🇨🇴','colômbia':'🇨🇴','chile':'🇨🇱',
-      'mexico':'🇲🇽','méxico':'🇲🇽','eua':'🇺🇸','usa':'🇺🇸','estados unidos':'🇺🇸',
-      'canada':'🇨🇦','canadá':'🇨🇦','japão':'🇯🇵','japan':'🇯🇵','coreia':'🇰🇷','coréia':'🇰🇷',
-      'coreia do sul':'🇰🇷','coreia sul':'🇰🇷','australia':'🇦🇺','austrália':'🇦🇺',
-      'marrocos':'🇲🇦','morocco':'🇲🇦','senegal':'🇸🇳','nigeria':'🇳🇬','nigéria':'🇳🇬',
-      'gana':'🇬🇭','ghana':'🇬🇭','camaroes':'🇨🇲','camarões':'🇨🇲','tunísia':'🇹🇳',
-      'tunisia':'🇹🇳','equador':'🇪🇨','ecuador':'🇪🇨','peru':'🇵🇪','polônia':'🇵🇱',
-      'polonia':'🇵🇱','poland':'🇵🇱','suíça':'🇨🇭','suica':'🇨🇭','switzerland':'🇨🇭',
-      'irã':'🇮🇷','iran':'🇮🇷','arábia saudita':'🇸🇦','arabia saudita':'🇸🇦',
-      'catar':'🇶🇦','qatar':'🇶🇦','costa rica':'🇨🇷','panama':'🇵🇦','panamá':'🇵🇦',
-      'jamaica':'🇯🇲','servia':'🇷🇸','sérvia':'🇷🇸','serbia':'🇷🇸','dinamarca':'🇩🇰',
-      'denmark':'🇩🇰','austria':'🇦🇹','áustria':'🇦🇹','suecia':'🇸🇪','suécia':'🇸🇪',
-      'sweden':'🇸🇪','finlandia':'🇫🇮','finlândia':'🇫🇮','ucrania':'🇺🇦','ucrânia':'🇺🇦',
-      'turquia':'🇹🇷','turkey':'🇹🇷','russia':'🇷🇺','rússia':'🇷🇺','china':'🇨🇳',
-      'india':'🇮🇳','índia':'🇮🇳','nova zelândia':'🇳🇿','new zealand':'🇳🇿',
-    };
+    <!-- FORMULARIO -->
+    <aside>
+      <div class="form-card">
+        <div class="form-topo">
+          <h2 id="formTitulo">Novo Time</h2>
+          <span class="form-modo" id="formModo">Cadastro</span>
+        </div>
+        <div class="form-corpo">
+          <input type="hidden" id="editId"/>
 
-    function getFlag(pais) {
-      if (!pais) return '🏳️';
-      return flagMap[pais.toLowerCase().trim()] || '🏳️';
-    }
+          <div class="campo">
+            <label for="inputNome">Nome do Time</label>
+            <input type="text" id="inputNome" placeholder="Ex: Brasil" maxlength="60" autocomplete="off"/>
+          </div>
 
-    let times = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    let nextId = times.length ? Math.max(...times.map(t => t.id)) + 1 : 1;
-    let excluirId = null;
+          <div class="campo">
+            <label for="inputPais">Pais</label>
+            <input type="text" id="inputPais" placeholder="Ex: Brasil" maxlength="60" autocomplete="off"/>
+          </div>
 
-    /* ── SEED inicial ── */
-    if (times.length === 0) {
-      const seed = [
-        {id:1, nometime:'Brasil',    pais:'Brasil',    conf:'CONMEBOL'},
-        {id:2, nometime:'Argentina', pais:'Argentina', conf:'CONMEBOL'},
-        {id:3, nometime:'França',    pais:'França',    conf:'UEFA'},
-        {id:4, nometime:'Alemanha',  pais:'Alemanha',  conf:'UEFA'},
-        {id:5, nometime:'Espanha',   pais:'Espanha',   conf:'UEFA'},
-        {id:6, nometime:'Portugal',  pais:'Portugal',  conf:'UEFA'},
-        {id:7, nometime:'Japão',     pais:'Japão',     conf:'AFC'},
-        {id:8, nometime:'Marrocos',  pais:'Marrocos',  conf:'CAF'},
-      ];
-      times = seed;
-      nextId = 9;
-      salvarStorage();
-    }
+          <div class="campo">
+            <label for="inputConf">Confederacao</label>
+            <select id="inputConf">
+              <option value="">Selecione</option>
+              <option value="CONMEBOL">CONMEBOL - America do Sul</option>
+              <option value="UEFA">UEFA - Europa</option>
+              <option value="AFC">AFC - Asia</option>
+              <option value="CAF">CAF - Africa</option>
+              <option value="CONCACAF">CONCACAF - America do Norte</option>
+              <option value="OFC">OFC - Oceania</option>
+            </select>
+          </div>
 
-    function salvarStorage() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(times));
-    }
+          <div class="form-acoes">
+            <button class="btn-salvar" onclick="salvar()">Salvar</button>
+            <button class="btn-cancelar" id="btnCancelar" onclick="cancelar()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </aside>
 
-    /* ── RENDER TABELA ── */
-    function renderTabela() {
-      const q = document.getElementById('searchInput').value.toLowerCase().trim();
-      const filtrados = q
-        ? times.filter(t =>
-            t.nometime.toLowerCase().includes(q) ||
-            t.pais.toLowerCase().includes(q) ||
-            (t.conf||'').toLowerCase().includes(q))
-        : times;
+    <!-- TABELA -->
+    <section>
+      <div class="tabela-card">
+        <div class="tabela-topo">
+          <h2>Selecoes Cadastradas</h2>
+          <div class="busca">
+            <input type="text" id="busca" placeholder="Buscar time ou pais..." oninput="renderTabela()"/>
+          </div>
+          <span class="total" id="total">0 times</span>
+        </div>
 
-      const tbody = document.getElementById('tabelaBody');
-      tbody.innerHTML = '';
+        <div class="tabela-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Time</th>
+                <th>Pais</th>
+                <th>Confederacao</th>
+                <th>Acoes</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+          <div class="vazio" id="vazio" style="display:none">
+            <strong>Nenhum time encontrado</strong>
+            Cadastre a primeira selecao pelo formulario ao lado.
+          </div>
+        </div>
+      </div>
+    </section>
 
-      if (filtrados.length === 0) {
-        document.getElementById('emptyState').style.display = 'block';
-      } else {
-        document.getElementById('emptyState').style.display = 'none';
-        filtrados.forEach(t => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td class="td-id">#${t.id}</td>
-            <td class="td-flag">${getFlag(t.pais)}</td>
-            <td class="td-team">${esc(t.nometime)}</td>
-            <td class="td-country">${esc(t.pais)}</td>
-            <td class="td-conf">
-              <span class="conf-tag conf-${t.conf||'OUTRO'}">${esc(t.conf||'—')}</span>
-            </td>
-            <td>
-              <div class="row-actions">
-                <button class="btn-edit"   onclick="iniciarEdicao(${t.id})">✏️ Editar</button>
-                <button class="btn-delete" onclick="pedirExclusao(${t.id})">🗑️ Remover</button>
-              </div>
-            </td>`;
-          tbody.appendChild(tr);
-        });
-      }
-      document.getElementById('totalBadge').textContent =
-        `${filtrados.length} time${filtrados.length !== 1 ? 's' : ''}`;
-    }
+  </div>
+</main>
 
-    function esc(s) {
-      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
+<!-- AVISO -->
+<div id="aviso"></div>
 
-    /* ── SALVAR (criar ou atualizar) ── */
-    function salvar() {
-      const nome = document.getElementById('inputNome').value.trim();
-      const pais = document.getElementById('inputPais').value.trim();
-      const conf = document.getElementById('inputConf').value;
-      const id   = document.getElementById('editId').value;
+<!-- MODAL -->
+<div class="modal-fundo" id="modalFundo">
+  <div class="modal">
+    <h3>Remover Time</h3>
+    <p id="modalTexto">Deseja remover este time? Esta acao nao pode ser desfeita.</p>
+    <div class="modal-acoes">
+      <button class="btn-modal-cancelar" onclick="fecharModal()">Cancelar</button>
+      <button class="btn-confirmar" onclick="confirmarRemocao()">Remover</button>
+    </div>
+  </div>
+</div>
 
-      if (!nome || !pais) {
-        toast('⚠️ Preencha o nome do time e o país.', true);
-        return;
-      }
+<script>
+  const CHAVE = 'copa2026_times';
+  let times = JSON.parse(localStorage.getItem(CHAVE) || '[]');
+  let proximoId = times.length ? Math.max(...times.map(t => t.id)) + 1 : 1;
+  let idRemover = null;
+  let timerAviso;
 
-      if (id) {
-        // EDITAR
-        const idx = times.findIndex(t => t.id === parseInt(id));
-        if (idx > -1) {
-          times[idx] = { id: parseInt(id), nometime: nome, pais, conf };
-          toast('✅ Time atualizado com sucesso!');
-        }
-        cancelarEdicao();
-      } else {
-        // CRIAR
-        times.push({ id: nextId++, nometime: nome, pais, conf });
-        toast('✅ Time cadastrado com sucesso!');
-        limparForm();
-      }
+  /* seed inicial */
+  if (times.length === 0) {
+    times = [
+      {id:1, nometime:'Brasil',     pais:'Brasil',     conf:'CONMEBOL'},
+      {id:2, nometime:'Argentina',  pais:'Argentina',  conf:'CONMEBOL'},
+      {id:3, nometime:'Franca',     pais:'Franca',     conf:'UEFA'},
+      {id:4, nometime:'Alemanha',   pais:'Alemanha',   conf:'UEFA'},
+      {id:5, nometime:'Espanha',    pais:'Espanha',    conf:'UEFA'},
+      {id:6, nometime:'Portugal',   pais:'Portugal',   conf:'UEFA'},
+      {id:7, nometime:'Japao',      pais:'Japao',      conf:'AFC'},
+      {id:8, nometime:'Marrocos',   pais:'Marrocos',   conf:'CAF'},
+    ];
+    proximoId = 9;
+    salvarStorage();
+  }
 
-      salvarStorage();
-      renderTabela();
-    }
+  function salvarStorage() {
+    localStorage.setItem(CHAVE, JSON.stringify(times));
+  }
 
-    /* ── EDITAR ── */
-    function iniciarEdicao(id) {
-      const t = times.find(t => t.id === id);
-      if (!t) return;
-      document.getElementById('editId').value     = t.id;
-      document.getElementById('inputNome').value  = t.nometime;
-      document.getElementById('inputPais').value  = t.pais;
-      document.getElementById('inputConf').value  = t.conf || '';
-      document.getElementById('formTitle').textContent = 'Editar Time';
-      document.getElementById('formBadge').textContent = 'Edição';
-      document.getElementById('btnSave').textContent   = '💾 Atualizar';
-      document.getElementById('btnCancel').style.display = 'inline-block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      document.getElementById('inputNome').focus();
-    }
+  function renderTabela() {
+    const q = document.getElementById('busca').value.toLowerCase().trim();
+    const filtrados = q
+      ? times.filter(t =>
+          t.nometime.toLowerCase().includes(q) ||
+          t.pais.toLowerCase().includes(q) ||
+          (t.conf||'').toLowerCase().includes(q))
+      : times;
 
-    function cancelarEdicao() {
-      limparForm();
-      document.getElementById('formTitle').textContent = 'Novo Time';
-      document.getElementById('formBadge').textContent = 'Cadastro';
-      document.getElementById('btnSave').textContent   = '💾 Salvar';
-      document.getElementById('btnCancel').style.display = 'none';
-    }
+    const tbody = document.getElementById('tbody');
+    tbody.innerHTML = '';
 
-    function limparForm() {
-      document.getElementById('editId').value    = '';
-      document.getElementById('inputNome').value = '';
-      document.getElementById('inputPais').value = '';
-      document.getElementById('inputConf').value = '';
-    }
-
-    /* ── EXCLUIR ── */
-    function pedirExclusao(id) {
-      const t = times.find(t => t.id === id);
-      if (!t) return;
-      excluirId = id;
-      document.getElementById('modalMsg').textContent =
-        `Deseja remover "${t.nometime}" (${t.pais})? Esta ação não pode ser desfeita.`;
-      document.getElementById('modalOverlay').classList.add('open');
-    }
-
-    function confirmarExclusao() {
-      times = times.filter(t => t.id !== excluirId);
-      salvarStorage();
-      renderTabela();
-      fecharModal();
-      toast('🗑️ Time removido.');
-    }
-
-    function fecharModal() {
-      document.getElementById('modalOverlay').classList.remove('open');
-      excluirId = null;
-    }
-
-    /* ── TOAST ── */
-    let toastTimer;
-    function toast(msg, err = false) {
-      const el = document.getElementById('toast');
-      el.textContent = msg;
-      el.className = 'show' + (err ? ' error' : '');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
-    }
-
-    /* ── ENTER key on form ── */
-    ['inputNome','inputPais','inputConf'].forEach(id => {
-      document.getElementById(id).addEventListener('keydown', e => {
-        if (e.key === 'Enter') salvar();
+    if (filtrados.length === 0) {
+      document.getElementById('vazio').style.display = 'block';
+    } else {
+      document.getElementById('vazio').style.display = 'none';
+      filtrados.forEach(t => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="td-id">${t.id}</td>
+          <td class="td-nome">${esc(t.nometime)}</td>
+          <td class="td-pais">${esc(t.pais)}</td>
+          <td><span class="conf-tag">${esc(t.conf || '--')}</span></td>
+          <td>
+            <div class="acoes">
+              <button class="btn-editar" onclick="iniciarEdicao(${t.id})">Editar</button>
+              <button class="btn-remover" onclick="pedirRemocao(${t.id})">Remover</button>
+            </div>
+          </td>`;
+        tbody.appendChild(tr);
       });
-    });
+    }
 
-    /* ── CLOSE modal on backdrop click ── */
-    document.getElementById('modalOverlay').addEventListener('click', e => {
-      if (e.target === e.currentTarget) fecharModal();
-    });
+    const n = filtrados.length;
+    document.getElementById('total').textContent = n + (n === 1 ? ' time' : ' times');
+  }
 
-    /* ── INIT ── */
+  function esc(s) {
+    return String(s)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;');
+  }
+
+  function salvar() {
+    const nome = document.getElementById('inputNome').value.trim();
+    const pais = document.getElementById('inputPais').value.trim();
+    const conf = document.getElementById('inputConf').value;
+    const id   = document.getElementById('editId').value;
+
+    if (!nome || !pais) {
+      aviso('Preencha o nome do time e o pais.', true);
+      return;
+    }
+
+    if (id) {
+      const idx = times.findIndex(t => t.id === parseInt(id));
+      if (idx > -1) times[idx] = { id: parseInt(id), nometime: nome, pais, conf };
+      aviso('Time atualizado com sucesso.');
+      cancelar();
+    } else {
+      times.push({ id: proximoId++, nometime: nome, pais, conf });
+      aviso('Time cadastrado com sucesso.');
+      limparForm();
+    }
+
+    salvarStorage();
     renderTabela();
-  </script>
+  }
+
+  function iniciarEdicao(id) {
+    const t = times.find(t => t.id === id);
+    if (!t) return;
+    document.getElementById('editId').value    = t.id;
+    document.getElementById('inputNome').value = t.nometime;
+    document.getElementById('inputPais').value = t.pais;
+    document.getElementById('inputConf').value = t.conf || '';
+    document.getElementById('formTitulo').textContent = 'Editar Time';
+    document.getElementById('formModo').textContent   = 'Edicao';
+    document.getElementById('btnCancelar').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('inputNome').focus();
+  }
+
+  function cancelar() {
+    limparForm();
+    document.getElementById('formTitulo').textContent    = 'Novo Time';
+    document.getElementById('formModo').textContent      = 'Cadastro';
+    document.getElementById('btnCancelar').style.display = 'none';
+  }
+
+  function limparForm() {
+    document.getElementById('editId').value    = '';
+    document.getElementById('inputNome').value = '';
+    document.getElementById('inputPais').value = '';
+    document.getElementById('inputConf').value = '';
+  }
+
+  function pedirRemocao(id) {
+    const t = times.find(t => t.id === id);
+    if (!t) return;
+    idRemover = id;
+    document.getElementById('modalTexto').textContent =
+      'Deseja remover "' + t.nometime + ' (' + t.pais + ')"? Esta acao nao pode ser desfeita.';
+    document.getElementById('modalFundo').classList.add('aberto');
+  }
+
+  function confirmarRemocao() {
+    times = times.filter(t => t.id !== idRemover);
+    salvarStorage();
+    renderTabela();
+    fecharModal();
+    aviso('Time removido.');
+  }
+
+  function fecharModal() {
+    document.getElementById('modalFundo').classList.remove('aberto');
+    idRemover = null;
+  }
+
+  function aviso(msg, erro = false) {
+    const el = document.getElementById('aviso');
+    el.textContent = msg;
+    el.className = 'mostrar' + (erro ? ' erro' : '');
+    clearTimeout(timerAviso);
+    timerAviso = setTimeout(() => el.classList.remove('mostrar'), 3000);
+  }
+
+  /* fechar modal clicando fora */
+  document.getElementById('modalFundo').addEventListener('click', e => {
+    if (e.target === e.currentTarget) fecharModal();
+  });
+
+  /* salvar com Enter */
+  ['inputNome','inputPais','inputConf'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') salvar();
+    });
+  });
+
+  renderTabela();
+</script>
 </body>
 </html>
